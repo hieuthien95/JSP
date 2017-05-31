@@ -1,0 +1,62 @@
+<footer id="site-footer" class="row align-center clearfix">
+    
+    <div class="row footer-link-wrapper clearfix">
+    
+        <div class="col about-us col-lg-2 col-md-2 col-sm-6 col-xs-6" style="padding:10px 15px">
+            <h3><b><a href="#" title="Giới Thiệu">Giới Thiệu</a></b></h3>
+            <ul class="nolist">
+				<?php foreach($introList as $intro) { ?>
+               		<li><a href="<?php echo $intro['link'] ?>"><?php echo $intro['vande'] ?></a></li>
+                <? }?>
+            </ul>
+        </div>
+        
+        <div class="col for-customer col-lg-2 col-md-2 col-sm-6 col-xs-6" style="padding:10px 15px">
+            <h3><a href="#"><b>Hỗ Trợ Khách Hàng</b></a></h3>
+            <ul class="nolist">
+            	<?php foreach($supList as $sup) { ?>
+                    <li><a href="<?php echo $sup['link'] ?>"><?php echo $sup['hotro'] ?></a></li>
+				<? } ?>
+            </ul>
+        </div>
+        
+        <div class="col customer-support col-lg-4 col-md-4 col-sm-6 col-xs-12" style="padding:10px 15px">
+            <h3><b><a href="#" title="Tổng đài bán hàng">Tổng đài bán hàng</a></b></h3>
+            <div class="table-wrapper">
+                <div class="row-wrapper title-wrapper clearfix">
+                 <div class="col1">Miền Nam</div>
+                 <div class="col2">Miền Trung</div>
+                 <div class="col3">Miền Bắc</div>
+                </div>
+                <div class="row-wrapper content-wrapper clearfix">
+                 <div class="col1"><?php echo $phoneList[0]['dt'] ?></div>
+                 <div class="col2"><?php echo $phoneList[1]['dt'] ?></div>
+                 <div class="col3"><?php echo $phoneList[2]['dt'] ?></div>
+                </div>
+            </div>
+            <div class="note">
+                Tư vấn, hỗ trợ <?php echo $phoneList[3]['dt'] ?>
+            </div>
+            <div class="note">
+                Khiếu nại <?php echo $phoneList[4]['dt'] ?>
+            </div>
+        </div>
+
+        <div class="col promotion col-lg-4 col-md-4 col-sm-6 col-xs-12" style="padding:10px 15px">
+        	<b><a href="#"><span style="line-height:25px">Thanh toán an toàn với</span></a><br /></b>
+            <?php foreach($payList as $pay) { ?>
+                <a href="<?php echo $pay['link'] ?>">
+                    <img width="75" height="30" src="<?php echo $pay['hinhthuc'] ?>">
+                </a>
+			<? } ?>            
+        </div>
+        
+    </div>
+    
+    <div class="clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  		<div class="copyright">
+        	© 2016. Công ty cổ phần Icon Club
+        </div>
+    </div>
+    
+</footer>
