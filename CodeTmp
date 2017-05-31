@@ -44,19 +44,37 @@ body {
 	width: 150px;
 }
 
+
+
+
+.table-container {
+    height: 450px;
+}
+
 table {
 	border-collapse: collapse;
 	border: solid 1px;
-	width: 100%
+	
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 100%;
 }
 
 thead {
 	background: #000;
 	color: #fff;
+	
+	/* head takes the height it requires, and it's not scaled when table is resized */
+    flex: 0 0 auto;
+    width: 100%;
 }
 
 tbody {
-	height: 50px;
+    /* body takes all the remaining available space */
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
 }
 
 th {
@@ -64,10 +82,21 @@ th {
 	font-size: 13px
 }
 
+tr {
+    width: 100%;
+}
+thead, tbody tr {
+    display: table;
+    table-layout: fixed;
+}
+
 td {
-	border: 1px solid #000;
+	border-bottom: 1px solid #000;
+	border-right: 1px solid #000;
 	padding: 5px;
-	font-size: 13px
+	font-size: 13px;
+	
+	overflow: hidden;
 }
 </style>
 
@@ -107,43 +136,45 @@ td {
 
 			<br><br>
 
-			<table>
-				<thead>
-					<tr>
-						<th>No.</th>
-						<th>Date</th>
-						<th>Working Class</th>
-						<th>Start Class</th>
-						<th>End Class</th>
-						<th>Start Time</th>
-						<th>End Time</th>
-						<th>Note</th>
-						<th colspan="2">Confirm</th>
-					</tr>
-				<thead>
-				<tbody>
-					<%
-						for (int i = 0; i < 15; i++) {
-					%>
-					<tr>
-						<td align="center"><%=i%></td>
-						<td>Mon - 2012/12/21</td>
-						<td>XXXXXXXXXXXX</td>
-						<td>XXXXXXXXXXXX</td>
-						<td>XXXXXXXXXXXX</td>
-						<td>hh:mm</td>
-						<td>hh:mm</td>
-						<td>XXXXXXXXXXXX</td>
-						<td colspan="1" align="center">Yes</td>
-						<td colspan="1" align="center"><a href="?ac=delete&id=<%=i%>">Delete</a></td>
-					</tr>
-					<%
-						}
-					%>
-
-				</tbody>
-			</table>
-
+			<div class="table-container">
+				<table>
+					<thead>
+						<tr>
+							<th width="20px">No.</th>
+							<th>Date</th>
+							<th>Working Class</th>
+							<th>Start Class</th>
+							<th>End Class</th>
+							<th>Start Time</th>
+							<th>End Time</th>
+							<th>Note</th>
+							<th width="120px" colspan="2">Confirm</th>
+						</tr>
+					<thead>
+					<tbody>
+						<%
+							for (int i = 0; i < 15; i++) {
+						%>
+						<tr>
+							<td width="20px" align="center"><%=i%></td>
+							<td>Mon - 2012/12/21</td>
+							<td>AAAAA AA AA AAA</td>
+							<td>BBBB BBB BBB BB</td>
+							<td>CCC CCCCCC CCC</td>
+							<td>hh:mm</td>
+							<td>hh:mm</td>
+							<td>DDD DDDDD DDDD</td>
+							<td width="30px" colspan="1" align="center">Yes</td>
+							<td width="40px" colspan="1" align="center"><a href="?ac=delete&id=<%=i%>">Delete</a></td>
+						</tr>
+						<%
+							}
+						%>
+	
+					</tbody>
+				</table>
+	
+			</div>
 			<br />
 
 			<a class="btn-default" href="AO5Servlet">Back</a>
