@@ -53,7 +53,6 @@ body {
 
 table {
 	border-collapse: collapse;
-	border: solid 1px;
 	
     display: flex;
     flex-flow: column;
@@ -67,10 +66,12 @@ thead {
 	
 	/* head takes the height it requires, and it's not scaled when table is resized */
     flex: 0 0 auto;
-    width: 100%;
+    width: calc(100% - 1em);
 }
 
 tbody {
+	border: solid 1px;
+
     /* body takes all the remaining available space */
     flex: 1 1 auto;
     display: block;
@@ -98,6 +99,15 @@ td {
 	
 	overflow: hidden;
 }
+
+td:last-child {
+	border-right: none;
+}
+
+tbody tr:hover {
+	background: #42f4f4;
+}
+
 </style>
 
 <body>
