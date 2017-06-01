@@ -1,0 +1,5 @@
+git add .
+git pull
+git clone https://github.com/hieuthien95/JSP.git
+git commit -m ""
+git push
