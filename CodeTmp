@@ -1,197 +1,41 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+package com.vaannila;
 
-<style>
-body {
-	background: #ddd;
-}
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
-.container {
-	width: 1024px;
-	height: 768px;
-	padding: 62px;
-	border: 1px solid #000;
-	margin: auto;
-	background: #fff
-}
+public class Main {
 
-.title-page {
-	padding-top: 0px; 
-	margin-top: 0px; 
-	margin-bottom: 50px;
-	text-align: center;
-}
-
-
-.btn-default {
-	background: #fff;
-	border: 1px solid #000;
-	padding: 5px 10px;
-	color: #000;
-	text-decoration: inherit;
-}
-
-.label {
-	width: 150px;
-	display: block;
-	float: left;
-}
-.confirm-form {
-	border: 1px solid #000;
-	padding: 30px
-}
-.confirm-form select {
-	float: left;
-	width: 150px;
-}
-
-
-
-
-.table-container {
-    height: 450px;
-}
-
-table {
-	border-collapse: collapse;
-	
-    display: flex;
-    flex-flow: column;
-    height: 100%;
-    width: 100%;
-}
-
-thead {
-	background: #000;
-	color: #fff;
-	
-	/* head takes the height it requires, and it's not scaled when table is resized */
-    flex: 0 0 auto;
-    width: calc(100% - 1em);
-}
-
-tbody {
-	border: solid 1px;
-
-    /* body takes all the remaining available space */
-    flex: 1 1 auto;
-    display: block;
-    overflow-y: scroll;
-}
-
-th {
-	padding: 5px;
-	font-size: 13px
-}
-
-tr {
-    width: 100%;
-}
-thead, tbody tr {
-    display: table;
-    table-layout: fixed;
-}
-
-td {
-	border-bottom: 1px solid #000;
-	border-right: 1px solid #000;
-	padding: 5px;
-	font-size: 13px;
-	
-	overflow: hidden;
-}
-
-td:last-child {
-	border-right: none;
-}
-
-tbody tr:hover {
-	background: #42f4f4;
-}
-
-</style>
-
-<body>
-	<div class="container">
-		<h1 class="title-page">CONFIRM</h1>
-
-		<form action="A06Servlet" class="confirm-form">
+	public static void main(String[] args) {
 		
-			<span class="label">Company Name</span> 
-			<select name="cpn_name">
-				<option value="Fujinet"></option>
-				<option value="Fujnet">Fujinet</option>
-			</select> 
+		try {
 			
-			<br><br>
+			final SimpleDateFormat ddMMyy = new SimpleDateFormat("yyyy/MM/dd");
 			
-			<span class="label">Employee Name</span> 
-			<select name="emp_name">
-				<option value="bht95"></option>
-				<option value="bht95">Bùi Hiếu Thiện</option>
-			</select> 
+			String ymd = "2017/02/05";
+			Date date = ddMMyy.parse(ymd);
 			
-			<br><br>
 			
-			<span class="label">Date</span> 
-			<select name="date_from">
-				<option value="2012/12/21">2012/12/21</option>
-			</select> 
-			
-			<span style="float: left; padding: 0px 5px"> ~ </span> 
-			<select name="date_to">
-				<option value="2012/12/21">2012/12/22</option>
-			</select> 
-			
-			<button class="btn-default" style="float: right; ">View</button>
+			Calendar mycal = new GregorianCalendar(date.getYear(), date.getMonth() + 1, date.getDay());
+			int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH); // 28
 
-			<br><br>
+			System.out.println(date.toString().substring(0, 3) + " - " + ymd);
+			System.out.println(daysInMonth);
+		
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		String sql ="SELECT * "
+				+ "FROM employee_mst e, worktime w, wrktime_ot ot "
+				+ "WHERE e.EMP_CODE = w.EMP_CODE "
+				+ "AND w.CAL_YMD >= 20170601 "
+				+ "AND w.CAL_YMD <= 20170631";
+		
 
-			<div class="table-container">
-				<table>
-					<thead>
-						<tr>
-							<th width="20px">No.</th>
-							<th>Date</th>
-							<th>Working Class</th>
-							<th>Start Class</th>
-							<th>End Class</th>
-							<th>Start Time</th>
-							<th>End Time</th>
-							<th>Note</th>
-							<th width="120px" colspan="2">Confirm</th>
-						</tr>
-					<thead>
-					<tbody>
-						<%
-							for (int i = 0; i < 15; i++) {
-						%>
-						<tr>
-							<td width="20px" align="center"><%=i%></td>
-							<td>Mon - 2012/12/21</td>
-							<td>AAAAA AA AA AAA</td>
-							<td>BBBB BBB BBB BB</td>
-							<td>CCC CCCCCC CCC</td>
-							<td>hh:mm</td>
-							<td>hh:mm</td>
-							<td>DDD DDDDD DDDD</td>
-							<td width="30px" colspan="1" align="center">Yes</td>
-							<td width="40px" colspan="1" align="center"><a href="?ac=delete&id=<%=i%>">Delete</a></td>
-						</tr>
-						<%
-							}
-						%>
-	
-					</tbody>
-				</table>
-	
-			</div>
-			<br />
+		
+	}
 
-			<a class="btn-default" href="AO5Servlet">Back</a>
-			
-			<button class="btn-default" style="float: right; margin-left: 40px">Next Month</button>
-			<button class="btn-default" style="float: right; margin-left: 40px">Previous Month</button>
-			<button class="btn-default" style="float: right; ">View</button>
-		</form>
-	</div>
-</body>
+}
