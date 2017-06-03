@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+
+	<!-- Configuration for the default package. -->
+	<package name="home" extends="struts-default" namespace="/">
+		
+		<action name="index" class="controller.HomeController" method="home">
+			<result name="success">/resource/views/home.jsp</result>
+		</action>	
+		
+		
+		
+		<action name="product-list" class="controller.HomeController" method="search">
+			<result name="success">/resource/views/product-list.jsp</result>
+		</action>	
+		
+		<action name="bai-viet-list" class="controller.HomeController" method="getAllBaiViet">
+			<result name="success">/resource/views/bai-viet-list.jsp</result>
+		</action>	
+		
+		<action name="video-list" class="controller.HomeController" method="getAllVideo">
+			<result name="success">/resource/views/video-list.jsp</result>
+		</action>	
+		
+		
+		
+		<action name="product" class="controller.HomeController" method="getProductDetail">
+			<result name="success">/resource/views/product-detail.jsp</result>
+		</action>	
+		
+		<action name="xem-bai-viet" class="controller.HomeController" method="getBaiVietDetail">
+			<result name="success">/resource/views/xem-bai-viet.jsp</result>
+		</action>	
+		
+		<action name="xem-video" class="controller.HomeController" method="getVideoDetail">
+			<result name="success">/resource/views/xem-video.jsp</result>
+		</action>	
+		
+		
+		
+		<action name="so-sanh" class="controller.HomeController" method="getSoSanh">
+			<result name="success">/resource/views/so-sanh.jsp</result>
+		</action>	
+		
+		
+		
+		
+		
+		
+		
+		<action name="admin" class="controller.HomeController">
+			<result name="success">/resource/views/admin/index.jsp</result>
+		</action>	
+		
+	</package>
+</struts>

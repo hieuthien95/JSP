@@ -1,0 +1,18 @@
+1.	khi no can 1 server khac ho tro, bang cach setAttribute("key","data"); 
+	de cho server kia lay ve xu ly tiep
+
+	RequestDispatcher rd = request.getRequestDispatcher("ServletKhac");
+  	rd.forward(request, response);
+  	
+  	hoac 
+  	
+  	RequestDispatcher rd = request.getRequestDispatcher("/ServletKhac");
+  	rd.forward(request, response);
+
+
+2.	khi muon chuyen huong bat ky url nao, 
+	khong dung request.setAttribute("key","data"); 
+	ma dung session.setAttribute("key","data"); 
+	
+	respose.sendRedirect("trangkhac.com"); // di toi trang trangkhac.com
+	response.sendRedirect(request.getHeader("referer")); // di toi trang gui yeu cau
