@@ -10,23 +10,82 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		try {
-			
-			final SimpleDateFormat ddMMyy = new SimpleDateFormat("yyyy/MM/dd");
-			
-			String ymd = "2017/02/05";
-			Date date = ddMMyy.parse(ymd);
-			
-			
-			Calendar mycal = new GregorianCalendar(date.getYear(), date.getMonth() + 1, date.getDay());
-			int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH); // 28
+		/**
+		 * 
+		 * phia servlet TODO
+		 * 
+		 */
+		ArrayList<Worktime> wrktimes = new ArrayList<>();
+		ArrayList<Worktime_ot> wrktime_ots = new ArrayList<>();
+		ArrayList<Calendar_mst> cal_msts = new ArrayList<>();
 
-			System.out.println(date.toString().substring(0, 3) + " - " + ymd);
-			System.out.println(daysInMonth);
-		
-		} catch (ParseException e) {
-			e.printStackTrace();
+		ArrayList<Worktime> wrktimes_tranfer = new ArrayList<>();
+
+		for (Worktime_ot ot : wrktime_ots) {
+			boolean flag_have_ot = false;
+
+			for (Worktime w : wrktimes) {
+				if (w.emp_code.equals(ot.emp_code) && w.getCal_ymd().equals(ot.getCal_ymd())) {
+					w.setWrk_end_time(ot.getWrk_ot_end_time());
+
+					flag_have_ot = true;
+					break;
+				}
+			}
+
+			if (flag_have_ot != true) {
+				Worktime ww = new Worktime();
+
+				ww.setEmp_code(ot.getEmp_code());
+				ww.setCal_ymd(ot.getCal_ymd());
+				ww.setCom_code(ot.getCom_code());
+				ww.setWrk_flg_chk(ot.getWrk_flg_chk());
+				ww.setWrk_note(ot.getNote());
+				ww.setWrk_start_time(ot.getWrk_ot_start_time());
+				ww.setWrk_end_time(ot.getWrk_ot_end_time());
+
+				wrktimes_tranfer.add(ww);
+			}
 		}
+
+		/**
+		 * 
+		 * phia table cua A06.jsp TODO
+		 * 
+		 */
+		for (Worktime w : wrktimes_tranfer) {
+			for (Calendar_mst c : cal_msts) {
+				if (w.getCal_ymd().equals(c.getCal_ymd())) {
+					// set color mau do
+				}
+			}
+		}
+
+		/*
+		 * 
+		 * get list date between 2 dates TODO
+		 * 
+		 */
+		final SimpleDateFormat sdf_ddMMyy = new SimpleDateFormat("yyyy/MM/dd");
+
+		List<Date> dates = new ArrayList<Date>();
+
+		Calendar calendar = new GregorianCalendar();
+
+		calendar.setTime(sdf_ddMMyy.parse("2017/06/01"));
+
+		while (calendar.getTime().compareTo(sdf_ddMMyy.parse("2017/06/30")) <= 0) {
+			dates.add(calendar.getTime());
+			calendar.add(Calendar.DATE, 1);
+		}
+
+		for (Date i : dates) {
+			System.out.println(i);
+		}
+		
+		
+		
+		
 		
 		String sql ="SELECT * "
 				+ "FROM employee_mst e, worktime w, wrktime_ot ot "
