@@ -89,6 +89,31 @@ public class Main {
 		
 		
 		
+		final SimpleDateFormat sdf_ddMMyy = new SimpleDateFormat("yyyy/MM/dd");
+
+		List<Date> dates = new ArrayList<Date>();
+
+		Calendar calendar = new GregorianCalendar();
+
+		calendar.setTime(sdf_ddMMyy.parse("2017/06/01"));
+
+		while (calendar.getTime().compareTo(sdf_ddMMyy.parse("2017/06/30")) <= 0) {
+			dates.add(calendar.getTime());
+			calendar.add(Calendar.DATE, 1);
+		}
+
+		ArrayList<Worktime> worktimes = new ArrayList<>();
+		for (Date i : dates) {
+			Worktime w = new Worktime();
+			w.setCal_ymd(i.getYear() + 1900 + "/" + (int) (i.getMonth() + 1) + "/" + i.getDate());
+			worktimes.add(w);
+		}
+		
+		for(Worktime i: worktimes)
+			System.out.println(i.getCal_ymd());
+		
+		
+		
 		
 		
 		
