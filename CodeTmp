@@ -35,7 +35,11 @@ public class Main {
 				+ "AND w.CAL_YMD <= 20170631";
 		
 
-		
+		SELECT w.CAL_YMD, w.EMP_CODE
+		FROM worktime w
+		WHERE w.EMP_CODE = 'emp1'
+		AND (CONVERT(VARCHAR(25), w.CAL_YMD, 101)) >= (CONVERT(VARCHAR(25), '20170601', 101))
+		AND (CONVERT(VARCHAR(25), w.CAL_YMD, 101)) <= (CONVERT(VARCHAR(25), '20170630', 101))
 	}
 
 }
