@@ -1,15 +1,17 @@
-package com.vaannila;
+package project;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class Main {
+	// @SuppressWarnings("deprecation")
+	public static void main(String[] args) throws ParseException {
 
-	public static void main(String[] args) {
-		
 		/**
 		 * 
 		 * phia servlet TODO
@@ -87,6 +89,18 @@ public class Main {
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		String sql ="SELECT * "
 				+ "FROM employee_mst e, worktime w, wrktime_ot ot "
 				+ "WHERE e.EMP_CODE = w.EMP_CODE "
@@ -99,6 +113,8 @@ public class Main {
 		WHERE w.EMP_CODE = 'emp1'
 		AND (CONVERT(VARCHAR(25), w.CAL_YMD, 101)) >= (CONVERT(VARCHAR(25), '20170601', 101))
 		AND (CONVERT(VARCHAR(25), w.CAL_YMD, 101)) <= (CONVERT(VARCHAR(25), '20170630', 101))
+		
+		
+		
 	}
-
 }
