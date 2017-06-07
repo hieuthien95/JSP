@@ -140,6 +140,10 @@ public class Main {
 		AND (CONVERT(VARCHAR(25), w.CAL_YMD, 101)) <= (CONVERT(VARCHAR(25), '20170630', 101))
 		
 		
-		
+		<% String message = "hihi"; %>
+		<script type="text/javascript">
+		    var msg = "<%=message%>";
+		    alert(msg);
+		</script>
 	}
 }
