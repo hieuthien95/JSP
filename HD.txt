@@ -4,3 +4,4 @@ git clone https://github.com/hieuthien95/JSP.git
 git commit -m ""
 git push
 git checkout
+git -rm r "thu muc"
