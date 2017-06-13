@@ -1,149 +1,222 @@
-package project;
+<%@page import="form.Na14Form"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.UserRegisterDAO"%>
+<%@page import="bean.User"%>
+<%@page import="java.util.List"%>
+<%@page import="org.apache.struts.action.ActionErrors"%>
+<%@taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
+<%@taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
+<%@taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-public class Main {
-	// @SuppressWarnings("deprecation")
-	public static void main(String[] args) throws ParseException {
-
-		/**
-		 * 
-		 * phia servlet TODO
-		 * 
-		 */
-		ArrayList<Worktime> wrktimes = new ArrayList<>();
-		ArrayList<Worktime_ot> wrktime_ots = new ArrayList<>();
-		ArrayList<Calendar_mst> cal_msts = new ArrayList<>();
-
-		ArrayList<Worktime> wrktimes_tranfer = new ArrayList<>();
-
-		for (Worktime_ot ot : wrktime_ots) {
-			boolean flag_have_ot = false;
-
-			for (Worktime w : wrktimes) {
-				if (w.emp_code.equals(ot.emp_code) && w.getCal_ymd().equals(ot.getCal_ymd())) {
-					w.setWrk_end_time(ot.getWrk_ot_end_time());
-
-					flag_have_ot = true;
-					break;
-				}
-			}
-
-			if (flag_have_ot != true) {
-				Worktime ww = new Worktime();
-
-				ww.setEmp_code(ot.getEmp_code());
-				ww.setCal_ymd(ot.getCal_ymd());
-				ww.setCom_code(ot.getCom_code());
-				ww.setWrk_flg_chk(ot.getWrk_flg_chk());
-				ww.setWrk_note(ot.getNote());
-				ww.setWrk_start_time(ot.getWrk_ot_start_time());
-				ww.setWrk_end_time(ot.getWrk_ot_end_time());
-
-				wrktimes_tranfer.add(ww);
-			}
-		}
-
-		/**
-		 * 
-		 * phia table cua A06.jsp TODO
-		 * 
-		 */
-		for (Worktime w : wrktimes_tranfer) {
-			for (Calendar_mst c : cal_msts) {
-				if (w.getCal_ymd().equals(c.getCal_ymd())) {
-					// set color mau do
-				}
-			}
-		}
-
-		/*
-		 * 
-		 * get list date between 2 dates TODO
-		 * 
-		 */
-		final SimpleDateFormat sdf_ddMMyy = new SimpleDateFormat("yyyy/MM/dd");
-
-		List<Date> dates = new ArrayList<Date>();
-
-		Calendar calendar = new GregorianCalendar();
-
-		calendar.setTime(sdf_ddMMyy.parse("2017/06/01"));
-
-		while (calendar.getTime().compareTo(sdf_ddMMyy.parse("2017/06/30")) <= 0) {
-			dates.add(calendar.getTime());
-			calendar.add(Calendar.DATE, 1);
-		}
-
-		for (Date i : dates) {
-			System.out.println(i);
-		}
-		
-		
-		
-		
-		
-		final SimpleDateFormat sdf_ddMMyy = new SimpleDateFormat("yyyy/MM/dd");
-
-		List<Date> dates = new ArrayList<Date>();
-
-		Calendar calendar = new GregorianCalendar();
-
-		calendar.setTime(sdf_ddMMyy.parse("2017/06/01"));
-
-		while (calendar.getTime().compareTo(sdf_ddMMyy.parse("2017/06/30")) <= 0) {
-			dates.add(calendar.getTime());
-			calendar.add(Calendar.DATE, 1);
-		}
-
-		ArrayList<Worktime> worktimes = new ArrayList<>();
-		for (Date i : dates) {
-			Worktime w = new Worktime();
-			w.setCal_ymd(i.getYear() + 1900 + "/" + (int) (i.getMonth() + 1) + "/" + i.getDate());
-			worktimes.add(w);
-		}
-		
-		for(Worktime i: worktimes)
-			System.out.println(i.getCal_ymd());
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		String sql ="SELECT * "
-				+ "FROM employee_mst e, worktime w, wrktime_ot ot "
-				+ "WHERE e.EMP_CODE = w.EMP_CODE "
-				+ "AND w.CAL_YMD >= 20170601 "
-				+ "AND w.CAL_YMD <= 20170631";
-		
-
-		SELECT w.CAL_YMD, w.EMP_CODE
-		FROM worktime w
-		WHERE w.EMP_CODE = 'emp1'
-		AND (CONVERT(VARCHAR(25), w.CAL_YMD, 101)) >= (CONVERT(VARCHAR(25), '20170601', 101))
-		AND (CONVERT(VARCHAR(25), w.CAL_YMD, 101)) <= (CONVERT(VARCHAR(25), '20170630', 101))
-		
-		
-		<% String message = "hihi"; %>
-		<script type="text/javascript">
-		    var msg = "<%=message%>";
-		    alert(msg);
-		</script>
-	}
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+<style type="text/css">
+body {
+	background: #ddd;
 }
+
+thead th {
+	background: #5784cc;
+	padding: 5px;
+	color: #fff;
+	border: solid 1px #fff;
+}
+
+tbody td {
+	padding: 5px;
+	border: solid 1px #fff;
+}
+
+tbody tr {
+	background: #fcfcfc;
+}
+
+table {
+	margin: auto;
+	border-collapse: collapse;
+}
+
+.container {
+	height: 550px;
+	width: 920px;
+	margin: auto;
+	padding: 15px;
+	background: #fff;
+}
+
+.input-text-big {
+	width: 160px
+}
+
+.input-text-small {
+	width: 80px
+}
+
+.input-num {
+	width: 25px;
+	height: 12px;
+	background: #FFF !important;
+	margin-left: 5px
+}
+
+.label {
+	text-align: right;
+	padding: 10px 15px
+}
+
+.label-center {
+	text-align: center;
+	padding: 10px 15px
+}
+
+.btn-default {
+	background: #eee;
+	border: 1px solid #ddd;
+	padding: 2px 10px;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.margin-them-side {
+	margin: 0px 30px
+}
+
+.this-margin {
+	margin: 0px 15px;
+	margin-top: 30px
+}
+
+.pad-right {
+	padding-right: 15px
+}
+
+.pad-left-90 {
+	padding-left: 90px
+}
+
+.abc:first-child>td>input {
+	background: #000
+}
+</style>
+</head>
+
+<script type="text/javascript">
+$(".hihi").attr("checked", "true");
+</script>
+
+<body>
+	<div class="container">
+
+		<div style="color: red">
+			<html:errors />
+		</div>
+
+		<hr style="border: 1px solid #ddd; width: 550px;" />
+		<h1 align="center">Form14</h1>
+		<div align="right" style="margin-top: -30px">
+			<html:button styleClass="btn-default" property="to01">Logout - To-01</html:button>
+		</div>
+
+		<html:form method="get" action="/Na14">
+
+			<div class="label-center" align="center">
+				<html:button styleClass="btn-default margin-them-side"
+					property="na15">Na-15</html:button>
+				<html:reset styleClass="btn-default margin-them-side">OK - Na-18</html:reset>
+			</div>
+
+			<table>
+				<thead>
+					<tr>
+						<td colspan="5" align="right" style="padding: 10px 0px"><span
+							style="float: left; margin-left: 40px">ABCDEFG</span> <span>ABC
+						</span><span> 1/20 </span><span> EFG</span> <html:submit
+								styleClass="btn-default">Page</html:submit> <html:text
+								styleClass="input-num" property="num" />
+						<td>
+					</tr>
+					<tr>
+						<th width="30px"></th>
+						<th width="150px">Month</th>
+						<th width="150px">Savings</th>
+						<th width="150px">Month</th>
+						<th width="150px">Savings</th>
+					</tr>
+				</thead>
+			</table>
+			<table>
+				<tbody>
+
+					<%
+						if (request.getAttribute("list_user") != null) {
+								int count = 0;
+					%>
+					<logic:iterate id="l" collection="${list_user}">
+						<tr class="abc" style="<%=count++ % 2 != 0 ? "background: #f4f4f4" : ""%>">
+							<td width="30px" align="center">
+								<html:radio styleClass="hihi" onfocus="true"  property="check" value="${l.firstName }"></html:radio>
+							</td>
+							<td width="150px"><bean:write name="l" property="firstName"/></td>
+							<td width="150px">${l.userName}</td>
+							<td width="150px" align="right">${l.email}</td>
+							<td width="150px" align="right">${l.password}</td>
+						</tr>
+					</logic:iterate>
+					<%
+						}
+					%>
+				</tbody>
+			</table>
+
+			<div align="right">
+				<html:submit styleClass="btn-default" style="margin-top: 20px"
+					property="na11">Choice - Na-11</html:submit>
+			</div>
+		</html:form>
+	</div>
+</body>
+</html>
+
+
+
+1あかちたなけまやらわ
+2いきしちにひみ    り
+3らくすつぬふむゆる
+4えけせてねへめ    れ
+5おこそとのほもよろをん
+1がざだばぱ
+2ぎじぢびぴ
+3ぐずづぶぷ
+4げぜでべぺ
+5ごぞどぼぽ
+1きゃ しゃ ちゃ にゃ ひゃ みゃ りゃ
+2きゅ しゅ ちゅ にゅ ひゅ みゅ りゅ
+3きょ しょ ちょ にょ ひょ みょ りょ
+1ぎゃ じゃ ぢゃ びゃ ぴゃ
+2ぎゅ じゅ ぢゅ びゅ ぴゅ
+3ぎょ ぢょ ぢょ びょ ぴょ
+ーーーーーーーーーーーーーー
+1わたし は  ﾍﾞﾄナム じん です
+2わたし は  すじ  フヅネツト  システムズ  の しゃいん です
+3わたし の しごと は コーディンｹﾞ coding です
+4これは アマハ yamaha ノバイku motobike です
+5それは パナソニツku panasonic の コンピューター computer です
+1コーヒー
+2カツプ 
+3ファいル
+4フォント
+5ヘッター
+6ﾌｯﾀﾞー
+7ブロック
+8フィールド
+9プロジェクター
+10プノビュー
+11ウィンドウ
+12オブジェクト
+13ページなバー
+14ﾃｷｽﾄボックス
+15スペルチェツク
