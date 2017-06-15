@@ -183,40 +183,72 @@ $(".hihi").attr("checked", "true");
 
 
 
-1あかちたなけまやらわ
-2いきしちにひみ    り
-3らくすつぬふむゆる
-4えけせてねへめ    れ
-5おこそとのほもよろをん
-1がざだばぱ
-2ぎじぢびぴ
-3ぐずづぶぷ
-4げぜでべぺ
-5ごぞどぼぽ
-1きゃ しゃ ちゃ にゃ ひゃ みゃ りゃ
-2きゅ しゅ ちゅ にゅ ひゅ みゅ りゅ
-3きょ しょ ちょ にょ ひょ みょ りょ
-1ぎゃ じゃ ぢゃ びゃ ぴゃ
-2ぎゅ じゅ ぢゅ びゅ ぴゅ
-3ぎょ ぢょ ぢょ びょ ぴょ
-ーーーーーーーーーーーーーー
-1わたし は  ﾍﾞﾄナム じん です
-2わたし は  すじ  フヅネツト  システムズ  の しゃいん です
-3わたし の しごと は コーディンｹﾞ coding です
-4これは アマハ yamaha ノバイku motobike です
-5それは パナソニツku panasonic の コンピューター computer です
-1コーヒー
-2カツプ 
-3ファいル
-4フォント
-5ヘッター
-6ﾌｯﾀﾞー
-7ブロック
-8フィールド
-9プロジェクター
-10プノビュー
-11ウィンドウ
-12オブジェクト
-13ページなバー
-14ﾃｷｽﾄボックス
-15スペルチェツク
+
+
+
+
+
+
+
+
+
+
+package action;
+
+import java.lang.Character.UnicodeBlock;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.struts.action.Action;
+
+public class AhihiAction extends Action {
+
+	private static boolean isHiragana(String str) {
+		for (char c : str.toCharArray()) {
+			if (Character.UnicodeBlock.of(c) != Character.UnicodeBlock.HIRAGANA) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private static boolean isChinese(String str) {
+		Set<UnicodeBlock> chineseUnicodeBlocks = new HashSet<UnicodeBlock>() {{
+		    add(UnicodeBlock.CJK_COMPATIBILITY);
+		    add(UnicodeBlock.CJK_COMPATIBILITY_FORMS);
+		    add(UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS);
+		    add(UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS_SUPPLEMENT);
+		    add(UnicodeBlock.CJK_RADICALS_SUPPLEMENT);
+		    add(UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION);
+		    add(UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS);
+		    add(UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A);
+		    add(UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B);
+		    add(UnicodeBlock.KANGXI_RADICALS);
+		    add(UnicodeBlock.IDEOGRAPHIC_DESCRIPTION_CHARACTERS);
+		}};
+		
+		for (char c : str.toCharArray()) {
+			if (!chineseUnicodeBlocks.contains(UnicodeBlock.of(c))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static boolean isKatakana(String str) {
+		for (char c : str.toCharArray()) {
+			if (Character.UnicodeBlock.of(c) != Character.UnicodeBlock.KATAKANA) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(isHiragana("わたしはてぃえん"));
+		System.out.println(isKatakana("デト ナム"));
+		System.out.println(isChinese("查詢促進民間參與公共建設法（210ＢＯＴ法）"));
+
+		System.out.println(Character.UnicodeBlock.of('詢'));
+	}
+}
