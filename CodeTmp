@@ -252,3 +252,44 @@ public class AhihiAction extends Action {
 		System.out.println(Character.UnicodeBlock.of('詢'));
 	}
 }
+
+
+<script type="text/javascript">
+        $(document).ready(function(){
+            $("#Month").change(function(){
+            	$("#Day").empty();
+            	
+                var month = $("#Month").val();
+                var year = $("#Year").val();
+                
+                var d = new Date(year, month, 0);
+                var numday = d.getDate();
+                for(var i = 1; i <= numday; i++) {
+                	if(i < 10) {
+                		$("#Day").append("<option value='0" + i + "'>0" + i + "</option>");
+                	} else {
+                		$("#Day").append("<option value='" + i + "'>" + i + "</option>");
+                	}
+                }
+            });
+        });     
+        
+        $(document).ready(function(){
+            $("#Year").change(function(){
+            	$("#Day").empty();
+            	
+                var month = $("#Month").val();
+                var year = $("#Year").val();
+                
+                var d = new Date(year, month, 0);
+                var numday = d.getDate();
+                for(var i = 1; i <= numday; i++) {
+                	if(i < 10) {
+                		$("#Day").append("<option value='0" + i + "'>0" + i + "</option>");
+                	} else {
+                		$("#Day").append("<option value='" + i + "'>" + i + "</option>");
+                	}
+                }
+            });
+        });   
+    </script>
