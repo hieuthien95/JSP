@@ -185,76 +185,51 @@ $(".hihi").attr("checked", "true");
 
 
 
+create table MST_USER (
+	user_id int not null identity(1,1) primary key, 
+	user_name varchar(255), 
+	pns_date decimal(4), 
+	date_created Datetime not null default getdate(),
+	date_updated Datetime not null default getdate()
+)
+insert into MST_USER(user_name, pns_date) values ('aaaaa', 5)
 
 
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 
+public class DBConnect {
 
+	private static Connection con = new DBConnect().getConnection();
 
-
-
-package action;
-
-import java.lang.Character.UnicodeBlock;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.apache.struts.action.Action;
-
-public class AhihiAction extends Action {
-
-	private static boolean isHiragana(String str) {
-		for (char c : str.toCharArray()) {
-			if (Character.UnicodeBlock.of(c) != Character.UnicodeBlock.HIRAGANA) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	private static boolean isChinese(String str) {
-		Set<UnicodeBlock> chineseUnicodeBlocks = new HashSet<UnicodeBlock>() {{
-		    add(UnicodeBlock.CJK_COMPATIBILITY);
-		    add(UnicodeBlock.CJK_COMPATIBILITY_FORMS);
-		    add(UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS);
-		    add(UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS_SUPPLEMENT);
-		    add(UnicodeBlock.CJK_RADICALS_SUPPLEMENT);
-		    add(UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION);
-		    add(UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS);
-		    add(UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A);
-		    add(UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B);
-		    add(UnicodeBlock.KANGXI_RADICALS);
-		    add(UnicodeBlock.IDEOGRAPHIC_DESCRIPTION_CHARACTERS);
-		}};
-		
-		for (char c : str.toCharArray()) {
-			if (!chineseUnicodeBlocks.contains(UnicodeBlock.of(c))) {
-				return false;
-			}
-		}
-		return true;
+	public static Connection getInstance() {
+		if (con == null)
+			return new DBConnect().getConnection();
+		return con;
 	}
 
-	private static boolean isKatakana(String str) {
-		for (char c : str.toCharArray()) {
-			if (Character.UnicodeBlock.of(c) != Character.UnicodeBlock.KATAKANA) {
-				return false;
-			}
+	public Connection getConnection() {
+		Connection con = null;
+
+		try {
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			con = DriverManager.getConnection(
+					"jdbc:sqlserver://DESKTOP-QSF92MV\\SQLEXPRESS:1433;database=CustomerSystem;user=sa;password=123456789;");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return true;
+		return con;
 	}
-	
+
 	public static void main(String[] args) {
-		System.out.println(isHiragana("わたしはてぃえん"));
-		System.out.println(isKatakana("デト ナム"));
-		System.out.println(isChinese("查詢促進民間參與公共建設法（210ＢＯＴ法）"));
-
-		System.out.println(Character.UnicodeBlock.of('詢'));
+		System.out.println(DBConnect.getInstance());
 	}
 }
 
 
-<script type="text/javascript">
+
+    <script type="text/javascript">
         $(document).ready(function(){
             $("#Month").change(function(){
             	$("#Day").empty();
@@ -272,24 +247,5 @@ public class AhihiAction extends Action {
                 	}
                 }
             });
-        });     
-        
-        $(document).ready(function(){
-            $("#Year").change(function(){
-            	$("#Day").empty();
-            	
-                var month = $("#Month").val();
-                var year = $("#Year").val();
-                
-                var d = new Date(year, month, 0);
-                var numday = d.getDate();
-                for(var i = 1; i <= numday; i++) {
-                	if(i < 10) {
-                		$("#Day").append("<option value='0" + i + "'>0" + i + "</option>");
-                	} else {
-                		$("#Day").append("<option value='" + i + "'>" + i + "</option>");
-                	}
-                }
-            });
-        });   
+        });      
     </script>
