@@ -6,6 +6,7 @@
 <%@page import="org.apache.struts.action.ActionErrors"%>
 <%@taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
+<%@taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -96,8 +97,18 @@ table {
 .pad-left-90 {
 	padding-left: 90px
 }
+
+.abc:first-child>td>input {
+	background: #000
+}
 </style>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 </head>
+
+<script type="text/javascript">
+$(".hihi").attr("checked", "true");
+</script>
 
 <body>
 	<div class="container">
@@ -112,7 +123,7 @@ table {
 			<html:button styleClass="btn-default" property="to01">Logout - To-01</html:button>
 		</div>
 
-		<html:form method="get" action="/Na14">
+		<html:form method="get" action="/Na14" styleId="myForm">
 
 			<div class="label-center" align="center">
 				<html:button styleClass="btn-default margin-them-side"
@@ -140,17 +151,18 @@ table {
 				</thead>
 			</table>
 			<table>
-				<tbody>
+				<tbody id = "MyDiv">
 
 					<%
 						if (request.getAttribute("list_user") != null) {
 								int count = 0;
 					%>
 					<logic:iterate id="l" collection="${list_user}">
-						<tr style="<%=count++ % 2 != 0 ? "background: #f4f4f4" : ""%>">
-							<td width="30px" align="center"><html:checkbox
-									property="check"></html:checkbox></td>
-							<td width="150px">${l.firstName}</td>
+						<tr class="abc" style="<%=count++ % 2 != 0 ? "background: #f4f4f4" : ""%>">
+							<td width="30px" align="center">
+								<html:checkbox property="check" value="${l.firstName }"></html:checkbox>
+							</td>
+							<td width="150px"><bean:write name="l" property="firstName"/></td>
 							<td width="150px">${l.userName}</td>
 							<td width="150px" align="right">${l.email}</td>
 							<td width="150px" align="right">${l.password}</td>
@@ -166,6 +178,19 @@ table {
 				<html:submit styleClass="btn-default" style="margin-top: 20px"
 					property="na11">Choice - Na-11</html:submit>
 			</div>
+			
+			<script type="text/javascript">
+				function clickBtn() {
+
+					var aArray = [];
+					$('#MyDiv input:checked').each(function() {
+						aArray.push(this.value);
+			        });
+					alert(aArray);
+				}
+			</script>
+			
+			<button type="button" id="mybtn" name="btn" value="submit-form" onclick="clickBtn()">Button</button>
 		</html:form>
 	</div>
 </body>

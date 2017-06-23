@@ -63,9 +63,9 @@ public class Na14Action extends DispatchAction {
 
 	}
 
-	public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+	public ActionForward office(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		System.out.println("You are in save function");
-		return mapping.findForward("save");
+		System.out.println("You are in office function");
+		return mapping.findForward("office");
 	}
 }

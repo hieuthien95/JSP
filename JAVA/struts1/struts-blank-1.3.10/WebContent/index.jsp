@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:forward page="employee.do?parameter=search"/>
+	<jsp:forward page="Welcome.do?parameter=office"/>
 </body>
 </html>

@@ -1,6 +1,10 @@
+<%-- 
+    Document   : office
+    Created on : Dec 19, 2008, 1:56:25 AM
+    Author     : eswar@vaannila.com
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
-<%@taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -10,6 +14,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Login Success. Welcome <bean:write name="LoginForm" property="userName"/></h1>
+        <p>More details about the Office TV show goes here...</p>
     </body>
 </html>

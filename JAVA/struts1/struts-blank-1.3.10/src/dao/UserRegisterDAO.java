@@ -68,10 +68,41 @@ public class UserRegisterDAO {
 		
 		return list;
 	}
+	
+	public List<User> getDataUsers(int numPage) throws Exception {
+		List<User>list = new ArrayList<User>();
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost/strutsdb", "root", "123456789");
+
+		try {
+			try {
+				PreparedStatement pst = con.prepareStatement("SELECT * FROM user_details limit " + numPage*5 +", " + 5);
+				ResultSet rs = pst.executeQuery();
+				while (rs.next()) {
+					User user = new User();
+					user.setFirstName(rs.getString(1));
+					user.setLastName(rs.getString(2));
+					user.setUserName(rs.getString(3));
+					user.setPassword(rs.getString(4));
+					user.setEmail(rs.getString(5));
+					user.setPhone(rs.getString(6));
+					list.add(user);
+				}
+			} catch (SQLException ex) {
+				System.out.println("SQL statement is not executed!" + ex);
+			}
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 
 	public static void main(String[] args) {
 		try {
-			System.out.println(new UserRegisterDAO().getData(1));
+			System.out.println(new UserRegisterDAO().getDataUsers(1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
