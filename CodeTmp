@@ -249,3 +249,12 @@ public class DBConnect {
             });
         });      
     </script>
+    
+    
+    
+    	SET ROWCOUNT 100
+	SELECT * FROM
+	(
+	   SELECT *,  ROW_NUMBER() OVER(ORDER BY user_id) NUM_INDEX FROM MST_USER
+	) A
+	WHERE NUM_INDEX > 15 AND NUM_INDEX <= 30
