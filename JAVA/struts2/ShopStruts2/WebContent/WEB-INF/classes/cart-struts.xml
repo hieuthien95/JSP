@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+
+	<!-- Configuration for the default package. -->
+	<package name="cart" extends="struts-default" namespace="/">
+		
+		<action name="cart" class="controller.CartController">
+			<result name="success">/resource/views/cart.jsp</result>
+		</action>
+		
+		<action name="checkout" class="controller.CartController">
+			<result name="success">/resource/views/checkout.jsp</result>
+		</action>
+		
+		
+		
+		<action name="add-to-cart" class="controller.CartController" method="addToCart">
+			<result type="redirect">${url}</result>
+		</action>
+		
+		<action name="sub-in-cart" class="controller.CartController" method="subInCart">
+			<result type="redirect">${url}</result>
+		</action>	
+		
+		<action name="remove-in-cart" class="controller.CartController" method="removeInCart">
+			<result type="redirect">${url}</result>
+		</action>		
+		
+		
+		
+		
+		<action name="insert-thanh-toan" class="controller.CheckoutController" method="insertThanhToanProcess">
+			<result type="redirect">${url}</result>
+		</action>	
+		
+		<action name="update-thanh-toan" class="controller.CheckoutController" method="updateThanhToanProcess">
+			<result type="redirect">/checkout</result>
+		</action>	
+		
+		
+		
+		
+		<action name="add-to-so-sanh" class="controller.CartController" method="addToSoSanh">
+			<result type="redirect">${url}</result>
+		</action>
+		
+		<action name="sub-in-so-sanh" class="controller.CartController" method="subInSoSanh">
+			<result type="redirect">${url}</result>
+		</action>	
+		
+		<action name="remove-in-so-sanh" class="controller.CartController" method="removeInSoSanh">
+			<result type="redirect">${url}</result>
+		</action>		
+	
+	</package>
+</struts>
