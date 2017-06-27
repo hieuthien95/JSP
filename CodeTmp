@@ -172,3 +172,13 @@ public class DBConnect {
 					alert(aArray);
 				}
 			</script>
+
+
+SELECT count(*) 
+FROM MST_USER 
+WHERE user_name = 'AAAA' COLLATE SQL_Latin1_General_CP1_CS_AS
+AND password = 'bbbb' COLLATE SQL_Latin1_General_CP1_CS_AS
+
+SELECT count(*) 
+FROM MST_USER 
+WHERE user_name like '%[_]%'
