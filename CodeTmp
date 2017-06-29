@@ -182,3 +182,20 @@ AND password = 'bbbb' COLLATE SQL_Latin1_General_CP1_CS_AS
 SELECT count(*) 
 FROM MST_USER 
 WHERE user_name like '%[_]%'
+
+SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery("SELECT COUNT(*) FROM SanPham");
+			long count = (long)query.uniqueResult();
+			System.out.println(count);
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			System.out.println(e.getMessage());
+		} finally {
+			session.close();
+		}
