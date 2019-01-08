@@ -3,6 +3,11 @@ git pull
 git clone https://github.com/hieuthien95/JSP.git
 git commit -m ""
 git push
-git checkout
-git rm -r "thu muc"
-git rm file.txt
+git checkout                          
+git rm -r "<thu_muc>"                 : xoa thu muc
+git rm <file.txt>                     : xoa 1 file
+
+git fetch                             : compare local va remote co thay doi gi
+git log                               : xem log commit cua local va remote
+git status                            : xem nhung file change o local
+git reset --hard origin <branch_name> : reset local cho giong voi rmote
