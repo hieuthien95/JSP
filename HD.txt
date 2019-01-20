@@ -1,9 +1,12 @@
-git add .
-git pull
 git clone https://github.com/hieuthien95/JSP.git
-git commit -m ""
-git push
-git checkout                          
+
+git add .				: add cac file co chinh sua
+git commit -m "initial commit"		: comit cai vua add vao local
+git push origin master			: push len server
+
+git pull
+git checkout    
+                      
 git rm -r "<thu_muc>"                 : xoa thu muc
 git rm <file.txt>                     : xoa 1 file
 
@@ -11,3 +14,17 @@ git fetch                             : compare local va remote co thay doi gi
 git log                               : xem log commit cua local va remote
 git status                            : xem nhung file change o local
 git reset --hard origin <branch_name> : reset local cho giong voi rmote
+
+==============================================================================
+
+…or create a new repository on the command line
+echo "# JS" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/hieuthien95/JS.git
+git push -u origin master
+
+…or push an existing repository from the command line
+git remote add origin https://github.com/hieuthien95/JS.git
+git push -u origin master
